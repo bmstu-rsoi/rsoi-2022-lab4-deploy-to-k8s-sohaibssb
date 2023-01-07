@@ -21,7 +21,9 @@ services:
       retries: 2
 
   carsservice:
-    build: registry.digitalocean.com/cfe-k8s-rsoi/carsservice
+    image: registry.digitalocean.com/cfe-k8s-rsoi/carsservice
+    build:
+      context: lab2/carsservice
     container_name: carsservice
     depends_on:
       postgres:
@@ -36,7 +38,9 @@ services:
       - "8070:8070"
 
   paymentservice:
-    build: registry.digitalocean.com/cfe-k8s-rsoi/paymentservice
+    image: registry.digitalocean.com/cfe-k8s-rsoi/paymentservice
+    build:
+      context: lab2/paymentservice
     container_name: paymentservice
     depends_on:
       postgres:
@@ -51,7 +55,9 @@ services:
       - "8050:8050"
 
   rentalservice:
-    build: registry.digitalocean.com/cfe-k8s-rsoi/rentalservice
+    image: registry.digitalocean.com/cfe-k8s-rsoi/rentalservice
+    build:
+      context: lab2/rentalservice
     container_name: rentalservice
     depends_on:
       postgres:
@@ -66,7 +72,9 @@ services:
       - "8060:8060"
 
   gatewayservice:
-    build: registry.digitalocean.com/cfe-k8s-rsoi/gatewayservice
+    image: registry.digitalocean.com/cfe-k8s-rsoi/gatewayservice
+    build:
+      context: lab2/gatewayservice
     container_name: gatewayservice
     depends_on:
       postgres:
