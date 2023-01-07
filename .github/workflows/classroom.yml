@@ -22,14 +22,16 @@ jobs:
         run: doctl registry login --expiry-seconds 1200
       - name: Push image in to Digital ocean Container Registry
         run: docker compose push
+      - name: uninstalling helm
+        run: |
+          helm uninstall postgres
+          helm uninstall services
       - name: k8s cluster kubeconfig
         run: |
           doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 rsoi-k8s
       - name: Deployment to the cluster
         run: |
           cd k8s
-          helm upgrade --install postgres postgres-chart/
-          helm upgrade --install services services-chart/
           sleep 120
 
       # TODO build, publish to docker hub, deploy to k8s
