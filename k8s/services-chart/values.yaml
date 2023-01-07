@@ -1,0 +1,31 @@
+cars:
+  service:
+    port: 8070
+    image:
+      name: registry.digitalocean.com/cfe-k8s-rsoi/carsservice
+      version: "latest"
+    database:
+      name: postgres
+gateway:
+  service:
+    port: 8080
+    image:
+      name: registry.digitalocean.com/cfe-k8s-rsoi/gatewayservice
+      version: "latest"
+    database:
+      name: postgres
+payment:
+  service:
+    port: 8050
+    image:
+      name: registry.digitalocean.com/cfe-k8s-rsoi/paymentservice
+      version: "latest"
+    database:
+      name: postgres
+rental:
+  service:
+    port: 8060
+    image:
+      name: registry.digitalocean.com/cfe-k8s-rsoi/rentalservice
+      version: "latest"
+    isGateway: true

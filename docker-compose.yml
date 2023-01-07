@@ -1,0 +1,91 @@
+version: "3"
+services:
+  postgres:
+    image: library/postgres:13
+    container_name: postgres
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./postgres/:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 15s
+      timeout: 15s
+      retries: 2
+
+  carsservice:
+    build: registry.digitalocean.com/cfe-k8s-rsoi/carsservice
+    container_name: carsservice
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATA_BASE_PORT: "5432"
+      DATA_BASE_NAME: "postgres"
+      DATA_BASE_USER: "postgres"
+      DATA_BASE_PASS: "postgres"
+      DATA_BASE_HOST: "postgres"
+    ports:
+      - "8070:8070"
+
+  paymentservice:
+    build: registry.digitalocean.com/cfe-k8s-rsoi/paymentservice
+    container_name: paymentservice
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATA_BASE_PORT: "5432"
+      DATA_BASE_NAME: "postgres"
+      DATA_BASE_USER: "postgres"
+      DATA_BASE_PASS: "postgres"
+      DATA_BASE_HOST: "postgres"
+    ports:
+      - "8050:8050"
+
+  rentalservice:
+    build: registry.digitalocean.com/cfe-k8s-rsoi/rentalservice
+    container_name: rentalservice
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATA_BASE_PORT: "5432"
+      DATA_BASE_NAME: "postgres"
+      DATA_BASE_USER: "postgres"
+      DATA_BASE_PASS: "postgres"
+      DATA_BASE_HOST: "postgres"
+    ports:
+      - "8060:8060"
+
+  gatewayservice:
+    build: registry.digitalocean.com/cfe-k8s-rsoi/gatewayservice
+    container_name: gatewayservice
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATA_BASE_PORT: "5432"
+      DATA_BASE_NAME: "postgres"
+      DATA_BASE_USER: "postgres"
+      DATA_BASE_PASS: "postgres"
+      DATA_BASE_HOST: "postgres"
+      CARS_SERVICE_HOST: "cars"
+      CARS_SERVICE_PORT: "8070"
+      PAYMENT_SERVICE_HOST: "payment"
+      PAYMENT_SERVICE_PORT: "8050"
+      RENTAL_SERVICE_HOST: "rental"
+      RENTAL_SERVICE_PORT: "8060"
+
+    ports:
+      - "8080:8080"
+
+volumes:
+  db-data:
