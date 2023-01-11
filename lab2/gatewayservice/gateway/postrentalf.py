@@ -1,7 +1,7 @@
 import os
 import json
 
-from quart import Blueprint, Response, request
+from quart import Blueprint, Response
 from .serviceorders import delete_data_from_service, post_data_from_service
 
 postrentalbf = Blueprint('post_rental_finish', __name__, )
@@ -11,16 +11,17 @@ postrentalbf = Blueprint('post_rental_finish', __name__, )
 async def post_rental_finish(rentalUid: str) -> Response:
     response = post_data_from_service(
         'http://' + os.environ['RENTAL_SERVICE_HOST'] + ':' + os.environ['RENTAL_SERVICE_PORT']
-        + '/api/v1/rental/'+rentalUid+'/finish', timeout=10)
+        + '/api/v1/rental/'+rentalUid+'/finish', timeout=5)
+
     if response is None:
         return Response(
-            status=503,
+            status=500,
             content_type='application/json',
             response=json.dumps({
-                'errors': ['Rental service is unavailable.']
+                'errors': ['service not working']
             })
         )
-    elif int(response.status_code / 100) != 2:
+    elif response.status_code != 200:
         return Response(
             status=response.status_code,
             content_type='application/json',
@@ -31,18 +32,14 @@ async def post_rental_finish(rentalUid: str) -> Response:
 
     response = delete_data_from_service(
         'http://' + os.environ['CARS_SERVICE_HOST'] + ':' + os.environ['CARS_SERVICE_PORT']
-        + '/api/v1/cars/' + rental['carUid'] + '/order', timeout=10)
+        + '/api/v1/cars/' + rental['carUid'] + '/order', timeout=5)
 
     if response is None:
-        response = delete_data_from_service(
-            'http://' + os.environ['RENTAL_SERVICE_HOST'] + ':' + os.environ['RENTAL_SERVICE_PORT']
-            + '/api/v1/rental/' + rentalUid + '/finish', timeout=10)
-
         return Response(
-            status=503,
+            status=500,
             content_type='application/json',
             response=json.dumps({
-                'errors': ['Cars service is unavailable.']
+                'errors': ['service not working']
             })
         )
 

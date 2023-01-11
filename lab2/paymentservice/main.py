@@ -13,6 +13,7 @@ app.register_blueprint(healthcheckb)
 
 
 def create_tables():
+    PaymentModel.drop_table()
     PaymentModel.create_table()
 
 

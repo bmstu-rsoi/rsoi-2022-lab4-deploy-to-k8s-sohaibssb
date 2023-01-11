@@ -85,11 +85,11 @@ services:
       DATA_BASE_USER: "postgres"
       DATA_BASE_PASS: "postgres"
       DATA_BASE_HOST: "postgres"
-      CARS_SERVICE_HOST: "cars"
+      CARS_SERVICE_HOST: "carsservice"
       CARS_SERVICE_PORT: "8070"
-      PAYMENT_SERVICE_HOST: "payment"
+      PAYMENT_SERVICE_HOST: "paymentservice"
       PAYMENT_SERVICE_PORT: "8050"
-      RENTAL_SERVICE_HOST: "rental"
+      RENTAL_SERVICE_HOST: "rentalservice"
       RENTAL_SERVICE_PORT: "8060"
 
     ports:
