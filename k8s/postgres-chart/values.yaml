@@ -1,4 +1,4 @@
-version: 13.8
+version: 13
 port: 5432
 
 default_database:
