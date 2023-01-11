@@ -1,16 +1,18 @@
 domain: com
 service:
-  port: 8080
+  port:
   isGateway:
   image:
     name:
     version:
+
   database:
     name:
-    host: postgres
+    host: postgres-service
     port: 5432
     username: postgres
     password: postgres
+
   resources:
     requests:
       cpu: 200m

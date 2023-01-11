@@ -1,4 +1,4 @@
-version: 13.8
+version: 13
 port: 5432
 
 default_database:
@@ -7,16 +7,18 @@ default_database:
   password: postgres
 
 users:
-  - name: program
-    password: test
+  - name: postgres
+    password: postgres
 
-datases:
+databases:
   - name: cars
-    user: program
-  - name: payment
-    user: program
+    user: postgres
+
   - name: rental
-    user: program
+    user: postgres
+
+  - name: payment
+    user: postgres
 
 resources:
   requests:
