@@ -26,6 +26,7 @@ jobs:
         run: |
           doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 rsoi-cluster
       - name: Deployment to the cluster
+      
         run: |
           cd k8s
           helm upgrade --install postgres postgres-chart/
