@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   postgres:
     image: library/postgres:13
@@ -10,12 +11,12 @@ services:
       POSTGRES_DB: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./postgres/:/docker-entrypoint-initdb.d/
+      - ./info/postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
 
   gateway:
-    image: registry.digitalocean.com/cfe-k8s-rsoi/gateway
+    image: gateway
     build: gateway/
     ports:
       - "8080:8080"
@@ -25,7 +26,7 @@ services:
       - payment
 
   cars:
-    image: registry.digitalocean.com/cfe-k8s-rsoi/cars
+    image: cars
     build: cars/
     ports:
       - "8070:8070"
@@ -33,7 +34,7 @@ services:
       - postgres
 
   rental:
-    image: registry.digitalocean.com/cfe-k8s-rsoi/rental
+    image: rental
     build: rental/
     ports:
       - "8060:8060"
@@ -41,7 +42,7 @@ services:
       - postgres
 
   payment:
-    image: registry.digitalocean.com/cfe-k8s-rsoi/payment
+    image: payment
     build: payment/
     ports:
       - "8050:8050"
