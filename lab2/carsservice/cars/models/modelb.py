@@ -6,7 +6,7 @@ pg_db = PostgresqlDatabase(
     user=os.getenv('DATA_BASE_USER'),
     password=os.getenv('DATA_BASE_PASS'),
     host=os.getenv('DATA_BASE_HOST'),
-    port=int(os.environ.get('DATA_BASE_PORT'))
+    port=int("DATA_BASE_PORT")
 )
 
 
