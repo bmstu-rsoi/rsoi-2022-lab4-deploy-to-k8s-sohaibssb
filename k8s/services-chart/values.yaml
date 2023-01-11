@@ -1,31 +1,36 @@
-cars:
-  service:
-    port: 8070
-    image:
-      name: registry.digitalocean.com/cfe-k8s-rsoi/carsservice
-      version: "latest"
-    database:
-      name: postgres
+dockerRegistry: sohaibssb/sohaib
+
 gateway:
   service:
     port: 8080
     image:
-      name: registry.digitalocean.com/cfe-k8s-rsoi/gatewayservice
-      version: "latest"
-    database:
-      name: postgres
+      name: gateway
+      version: "1.0"
+    isGateway: true
+
 payment:
   service:
     port: 8050
     image:
-      name: registry.digitalocean.com/cfe-k8s-rsoi/paymentservice
-      version: "latest"
-    database:
-      name: postgres
+      name: payment
+      version: "1.0"
+    database: 
+      name: payment
+
 rental:
   service:
     port: 8060
     image:
-      name: registry.digitalocean.com/cfe-k8s-rsoi/rentalservice
-      version: "latest"
-    isGateway: true
+      name: rental
+      version: "1.0"
+    database:
+      name: rental
+
+cars:
+  service:
+    port: 8070
+    image:
+      name: cars
+      version: "1.0"
+    database: 
+      name: cars

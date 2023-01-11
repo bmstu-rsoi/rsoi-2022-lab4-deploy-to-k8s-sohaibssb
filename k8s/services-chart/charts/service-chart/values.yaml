@@ -1,4 +1,5 @@
-domain: com
+domain: vgilko.cloud.okteto.net
+dockerRegistry: sohaibssb/sohaib
 service:
   port:
   isGateway:
