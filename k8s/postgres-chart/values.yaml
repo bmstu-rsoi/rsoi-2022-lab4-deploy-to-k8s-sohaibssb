@@ -11,11 +11,11 @@ users:
     password: test
 
 datases:
-  - name: loyalties
+  - name: cars
     user: program
-  - name: payments
+  - name: payment
     user: program
-  - name: reservations
+  - name: rental
     user: program
 
 resources:
