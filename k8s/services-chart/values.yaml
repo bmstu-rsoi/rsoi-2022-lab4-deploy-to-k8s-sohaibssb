@@ -1,36 +1,31 @@
-dockerRegistry: sohaibssb/sohaib
-
+loyalty:
+  service:
+    port: 8050
+    image:
+      name: registry.digitalocean.com/cfe-k8s-rsoi/loyaltyservice
+      version: "latest"
+    database:
+      name: loyalties
+payment:
+  service:
+    port: 8060
+    image:
+      name: registry.digitalocean.com/cfe-k8s-rsoi/paymentservice
+      version: "latest"
+    database:
+      name: payments
+reservation:
+  service:
+    port: 8070
+    image:
+      name: registry.digitalocean.com/cfe-k8s-rsoi/reservationservice
+      version: "latest"
+    database:
+      name: reservations
 gateway:
   service:
     port: 8080
     image:
-      name: gateway
-      version: "1.0"
+      name: registry.digitalocean.com/cfe-k8s-rsoi/gatewayservice
+      version: "latest"
     isGateway: true
-
-payment:
-  service:
-    port: 8050
-    image:
-      name: payment
-      version: "1.0"
-    database: 
-      name: payment
-
-rental:
-  service:
-    port: 8060
-    image:
-      name: rental
-      version: "1.0"
-    database:
-      name: rental
-
-cars:
-  service:
-    port: 8070
-    image:
-      name: cars
-      version: "1.0"
-    database: 
-      name: cars

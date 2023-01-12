@@ -1,19 +1,16 @@
-domain: vgilko.cloud.okteto.net
-dockerRegistry: sohaibssb/sohaib
+domain: com
 service:
-  port:
+  port: 8080
   isGateway:
   image:
     name:
     version:
-
   database:
     name:
-    host: postgres-service
+    host: postgres
     port: 5432
     username: postgres
     password: postgres
-
   resources:
     requests:
       cpu: 200m
